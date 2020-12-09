@@ -1,0 +1,78 @@
+@import '~material-design-icons/iconfont/material-icons.css';
+
+html {
+  box-sizing: border-box;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+    Oxygen-Sans, Ubuntu, Cantarell, 'Helvetica Neue', sans-serif,
+    'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
+
+  /*
+   * CSS image reference example.
+   */
+  background-image: url('./images/bg-pattern.png');
+}
+.material-icons {
+  font-family: 'Material Icons';
+  font-weight: normal;
+  font-style: normal;
+  font-size: 35px; /* Preferred icon size */
+  display: inline-block;
+  line-height: 1;
+  text-transform: none;
+  letter-spacing: normal;
+  word-wrap: normal;
+  white-space: nowrap;
+  direction: ltr;
+  padding-top: 5px;
+
+  /* Support for all WebKit browsers. */
+  -webkit-font-smoothing: antialiased;
+  /* Support for Safari and Chrome. */
+  text-rendering: optimizeLegibility;
+
+  /* Support for Firefox. */
+  -moz-osx-font-smoothing: grayscale;
+
+  /* Support for IE. */
+  font-feature-settings: 'liga';
+}
+.main-gallery {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  align-items: baseline;
+}
+.search-form > input {
+  width: 200px;
+  height: 50px;
+  display: block;
+  margin: 0 auto;
+}
+.stats-item {
+  font-size: 25px;
+}
+.stats {
+  display: flex;
+  justify-content: space-around;
+}
+
+.load-more {
+  display: block;
+  margin: 50px auto;
+}
+.is-hidden {
+  display: none;
+}
+img {
+  width: 640px;
+  height: 420px;
+}
