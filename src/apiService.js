@@ -5,45 +5,47 @@ const buttonLoadMoreRef = document.querySelector('.load-more')
 const galleryRef = document.querySelector(".main-gallery")
 const inputRef = document.querySelector('#search-form')
 const apiKey = '19435383-9ad0ec23cc9f9538427174dc8';
+const baseUrl = `https://pixabay.com/api/?image_type=photo&orientation=horizontal`;
+let searchingValue;
 let pageNumber = 1;
 
-const baseUrl = `https://pixabay.com/api/?image_type=photo&orientation=horizontal`;
-console.log(galleryRef)
-let searchingValue = `house`;
-function makeMarkUp(array) {
+const findImgApp = {
+scrollBottom() { if (pageNumber !== 1) { window.scrollTo({
+    top: (document.documentElement.offsetHeight - 1400),
+    behavior: "smooth"
+});} return},
+makeMarkUp(array) {
     galleryRef.insertAdjacentHTML('beforeend', markUp(array))
-
-};
-const startSearch = debounce(400, event => {
+},
+startSearch: debounce(400, event => {
+    if (event.target.value === "") {
+        buttonLoadMoreRef.classList.add("is-hidden")
+        galleryRef.innerHTML = "";
+        return
+    }
+    pageNumber = 1;
     galleryRef.innerHTML = "";
     searchingValue = event.target.value;
     console.log(searchingValue)
-    findImage();
+    findImgApp.findImage();
     buttonLoadMoreRef.classList.remove("is-hidden")
+
     
-});
-
-inputRef.addEventListener('input', startSearch )
-
-function findImage() {
+}),
+loadNextPage() {
+    pageNumber += 1;
+   this.findImage();
+},
+findImage() {
     fetch(`${baseUrl}&q=${searchingValue}&page=${pageNumber}&per_page=12&key=${apiKey}`)
     .then(res => res.json())
-    .then(res => makeMarkUp(res.hits))
+        .then(res => this.makeMarkUp(res.hits))
+        .then(res => this.scrollBottom())          
     .catch(res => console.log(res))
+},
 };
-buttonLoadMoreRef.addEventListener('click', () => {
-    loadNextPage();
-    console.log(document.documentElement.offsetHeight)
-window.scrollTo({
-  top: 100,
-  behavior: 'smooth'
-}); })
 
-function loadNextPage() {
-    pageNumber += 1;
-    findImage();   
-}
-export default fetch;
-const apiFindImg = {};
+inputRef.addEventListener('input', findImgApp.startSearch )
+buttonLoadMoreRef.addEventListener('click', () => { findImgApp.loadNextPage() });
 
-
+export default findImgApp;
